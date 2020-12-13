@@ -1,2 +1,5 @@
 
 *.class
+.vscode/launch.json
+*.json
+src/leetCode/ZigZagConversion
