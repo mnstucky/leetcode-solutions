@@ -1,7 +1,7 @@
 // https://leetcode.com/problems/zigzag-conversion/
 // 
-// Runtime: 16 ms, faster than 44.12% of C++ online submissions for ZigZag Conversion.
-// Memory Usage: 8.3 MB, less than 94.80% of C++ online submissions for ZigZag Conversion.
+// Runtime: 8 ms, faster than 89.84% of C++ online submissions for ZigZag Conversion.
+// Memory Usage: 7.9 MB, less than 99.59% of C++ online submissions for ZigZag Conversion.
 
 #include <string>
 #include <iostream>
