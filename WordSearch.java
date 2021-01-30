@@ -1,54 +1,39 @@
 // https://leetcode.com/problems/word-search/submissions/
 
-import java.util.*;
+// Runtime: 4 ms, faster than 98.91% of Java online submissions for Word Search.
+// Memory Usage: 41.1 MB, less than 54.96% of Java online submissions for Word Search.
 
-class WordSearch {
-    
+class Solution {
+
     public boolean exist(char[][] board, String word) {
-        int row = 0;
-        int col = 0;
-        while (row <= board.length - 1 && col <= board[0].length - 1) {
-            if (board[row][col] == word.charAt(0)) {
-                Set<String> used = new HashSet<>();
-                if (recursiveExist(board, row, col, word, used)) {
+        char firstLtr = word.charAt(0);
+        for (int row = 0; row < board.length; row++) {
+            for (int col = 0; col < board[0].length; col++) {
+                if (board[row][col] == firstLtr && recursiveExist(board, row, col, word, 0)) {
                     return true;
                 }
             }
-            if (col == board[0].length - 1) {
-                row++;
-                col = 0;
-                continue;
-            }
-            col++;
         }
         return false;
     }
 
-    private boolean recursiveExist(char[][] board, int row, int col, String word, Set used) {
-        if (row < 0 || row >= board.length || col < 0 || col >= board[0].length) {
+    private boolean recursiveExist(char[][] board, int row, int col, String word, int wordIdx) {
+        if (wordIdx == word.length()) {
+            return true;
+        }
+        if (row < 0 || col < 0 || row >= board.length || col >= board[0].length
+                || board[row][col] != word.charAt(wordIdx)) {
             return false;
         }
-        if (used.contains(row + "," + col)) {
-            return false;
-        }
-        if (board[row][col] == word.charAt(0)) {
-            if (word.length() == 1) {
-                return true;
-            } else {
-                used.add(row + "," + col);
-                if (recursiveExist(board, row + 1, col, word.substring(1), used)
-                        || recursiveExist(board, row - 1, col, word.substring(1), used)
-                        || recursiveExist(board, row, col + 1, word.substring(1), used)
-                        || recursiveExist(board, row, col - 1, word.substring(1), used)) {
-                    return true;
-                } else {
-                    used.remove(row + "," + col);
-                    return false;
-                }
-            }
-        } else {
-            return false;
-        }
+        char visitedChar = board[row][col];
+        board[row][col] = ' ';
+        boolean result = recursiveExist(board, row + 1, col, word, wordIdx + 1)
+                || recursiveExist(board, row - 1, col, word, wordIdx + 1)
+                || recursiveExist(board, row, col + 1, word, wordIdx + 1)
+                || recursiveExist(board, row, col - 1, word, wordIdx + 1);
+        board[row][col] = visitedChar;
+        return result;
+
     }
 
 }
