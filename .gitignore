@@ -3,3 +3,4 @@
 .vscode/launch.json
 *.json
 src/leetCode/ZigZagConversion
+.idea/workspace.xml

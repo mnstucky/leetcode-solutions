@@ -1,5 +1,3 @@
-package leetCode;
-
 public class CountAndSay {
     public static String countAndSay(int n) {
         if (n == 1) return "1";

@@ -1,5 +1,3 @@
-package leetCode;
-
 // https://leetcode.com/problems/search-insert-position/
 
 public class SearchInsertPosition {

@@ -1,5 +1,3 @@
-package leetCode;
-
 // https://leetcode.com/problems/longest-common-prefix/
 
 public class LongestCommonPrefix {

@@ -1,5 +1,3 @@
-package leetCode;
-
 // https://leetcode.com/problems/length-of-last-word/
 
 public class LengthOfLastWord {

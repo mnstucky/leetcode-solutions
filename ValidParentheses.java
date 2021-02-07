@@ -1,5 +1,3 @@
-package leetCode;
-
 // https://leetcode.com/problems/valid-parentheses/
 
 import java.util.Stack;
