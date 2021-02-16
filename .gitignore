@@ -4,3 +4,4 @@
 *.json
 src/leetCode/ZigZagConversion
 .idea/workspace.xml
+*.exe
