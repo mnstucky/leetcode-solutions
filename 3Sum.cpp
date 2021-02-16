@@ -14,22 +14,21 @@ public:
     {
         std::vector<std::vector<int>> result;
         int numsSize = nums.size();
-        if (numsSize < 3) {
-            return result;
-        }
+        if (numsSize < 3) return result;
         std::sort(nums.begin(), nums.end());
-        for (int anchor = 0; anchor < numsSize - 2; anchor++) {
+        for (int anchor = 0; anchor < numsSize - 2; anchor++)
+        {
             if (nums.at(anchor) > 0) break;
             if (anchor > 0 && nums.at(anchor) == nums.at(anchor - 1)) continue;
             int front = anchor + 1;
-            int back = numsSize -1;
-            while (front < back) {
+            int back = numsSize - 1;
+            while (front < back)
+            {
                 int currentSum = nums.at(anchor) + nums.at(front) + nums.at(back);
-                if (currentSum > 0) {
-                    back--;
-                } else if (currentSum < 0) {
-                    front++;
-                } else {
+                if (currentSum > 0) back--;
+                else if (currentSum < 0) front++;
+                else
+                {
                     result.push_back(std::vector<int>{nums.at(anchor), nums.at(front), nums.at(back)});
                     int priorFront = nums.at(front);
                     int priorBack = nums.at(back);
@@ -41,17 +40,3 @@ public:
         return result;
     }
 };
-
-int main()
-{
-    Solution tester;
-    std::vector<int> testVector = {0,0,0,0};
-    auto result = tester.threeSum(testVector);
-    for (auto vec : result)
-    {
-        for (auto ele : vec)
-        {
-            std::cout << ele;
-        }
-    }
-}
