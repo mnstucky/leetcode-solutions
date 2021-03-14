@@ -1,46 +1,37 @@
 // https://leetcode.com/problems/house-robber-ii/submissions/
 
-import java.util.Map;
-import java.util.HashMap;
+// Runtime: 0 ms, faster than 100.00% of Java online submissions for House Robber II.
+// Memory Usage: 38.6 MB, less than 6.23% of Java online submissions for House Robber II.
 
 class HouseRobber2 {
-
-    private Map<String, Integer> memo;
-
-    HouseRobber2() {
-        memo = new HashMap<>();
-    }
 
     public int rob(int[] nums) {
         if (nums.length == 1) {
             return nums[0];
         }
+        // You can either choose to rob the first or the second house
         return Math.max(robSequence(nums, 0, nums.length - 2), robSequence(nums, 1, nums.length - 1));
     }
 
     public int robSequence(int[] nums, int firstHouse, int lastHouse) {
+        // If your robSequence contains only one house, rob that house
         if (lastHouse == firstHouse) {
             return nums[firstHouse];
         }
+        // If your robSequence has no houses, return 0 (nothing to steal)
         if (lastHouse < firstHouse) {
             return 0;
         }
-        Integer chooseFirst = memo.get(firstHouse + 2 + "," + lastHouse);
-        Integer chooseSecond = memo.get(firstHouse + 3 + "," + lastHouse);
-        if (chooseFirst == null) {
-            chooseFirst = robSequence(nums, firstHouse + 2, lastHouse);
-            memo.put(firstHouse + 2 + "," + lastHouse, chooseFirst);
+        // Check all houses in order, choosing whether to rob the current house 
+        int sumPriorHouseNotRobbed = 0, sumPriorHouseRobbed = 0;
+        for (int currentHouse = firstHouse; currentHouse <= lastHouse; currentHouse++) {
+            // Rob the current house if doing so nets more than keeping your total from robbing the prior house
+            int currentMax = Math.max(nums[currentHouse] + sumPriorHouseNotRobbed, sumPriorHouseRobbed);
+            // Update the totals
+            sumPriorHouseNotRobbed = sumPriorHouseRobbed;
+            sumPriorHouseRobbed = currentMax;
         }
-        if (chooseSecond == null) {
-            chooseSecond = robSequence(nums, firstHouse + 3, lastHouse);
-            memo.put(firstHouse + 3 + "," + lastHouse, chooseSecond);
-        }
-        return Math.max(nums[firstHouse] + chooseFirst, nums[firstHouse + 1] + chooseSecond);
-    }
-
-    public static void main(String[] args) {
-        HouseRobber2 tester = new HouseRobber2();
-        System.out.println(tester.rob(new int[] { 1, 2, 1, 1 }));
+        return sumPriorHouseRobbed;
     }
 
 }
